@@ -25,55 +25,71 @@ def main():
             
         with col2:
             
-            st.page_link("pages/4_uploaded_reports.py", label="Uploaded Reports", icon="🔒")  # Links to Login page
+            st.page_link("pages/4_uploaded_reports.py", label="Uploaded Reports", icon="📋")  # Links to Login page
 
 
         st.write(f"Welcome, {st.session_state.username}!")  # Confirm user
 
-        uploaded_file = st.file_uploader("Upload PDF or Image", type=["pdf", "png", "jpg", "jpeg"])
+        report_count = len(st.session_state.reports)
+        max_free_reports = 5
 
-        if uploaded_file:
-            file_type = uploaded_file.type
-            extracted_text = ""
-            images = []
+        if not st.session_state.subscribed and report_count >= max_free_reports:
+            st.error(f"You have reached the limit of {max_free_reports} free uploads.")
+            st.write("Please subscribe to upload more reports.")
+            st.page_link("pages/5_Subscription.py", label="Go to Subscription", icon="💳")
+            st.stop()
+        
+        else:
 
-            if file_type == "application/pdf":
-                st.info("Processing PDF file...")
-                images = convert_pdf_to_images(uploaded_file)
-                uploaded_file.seek(0)
-                extracted_text = extract_text_from_pdf(uploaded_file)
-            elif file_type.startswith("image/"):
-                st.info("Processing Image file...")
-                image = Image.open(uploaded_file)
-                extracted_text = extract_text_from_image(image)
-                images = [image]
+            uploaded_file = st.file_uploader("Upload PDF or Image", type=["pdf", "png", "jpg", "jpeg"])
 
-            col1, col2 = st.columns(2)
-            with col1:
-                st.header("Report Preview")
-                if images:
-                    for img in images:
-                        st.image(img, caption="Page Preview", use_container_width=True)
-                else:
-                    st.warning("No preview available.")
-            with col2:
-                st.header("Extracted Text")
-                if extracted_text:
-                    st.text_area("  ", extracted_text, height=460)
-                else:
-                    st.warning("No text extracted.")
+            if uploaded_file:
+                file_type = uploaded_file.type
+                extracted_text = ""
+                images = []
 
-            upload_time = datetime.datetime.now()
-            file_bytes = io.BytesIO(uploaded_file.getvalue())
-            file_size = file_bytes.getbuffer().nbytes
+                if file_type == "application/pdf":
+                    st.info("Processing PDF file...")
+                    images = convert_pdf_to_images(uploaded_file)
+                    uploaded_file.seek(0)
+                    extracted_text = extract_text_from_pdf(uploaded_file)
+                elif file_type.startswith("image/"):
+                    st.info("Processing Image file...")
+                    image = Image.open(uploaded_file)
+                    extracted_text = extract_text_from_image(image)
+                    images = [image]
 
-            st.session_state.reports.append({
-                "name": uploaded_file.name,
-                "file": file_bytes,
-                "upload_time": upload_time,
-                "type": file_type,
-                "size": file_size
-            })
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.header("Report Preview")
+                    if images:
+                        for img in images:
+                            st.image(img, caption="Page Preview", use_container_width=True)
+                    else:
+                        st.warning("No preview available.")
+                with col2:
+                    st.header("Extracted Text")
+                    if extracted_text:
+                        st.text_area("  ", extracted_text, height=460)
+                    else:
+                        st.warning("No text extracted.")
+
+                upload_time = datetime.datetime.now()
+                file_bytes = io.BytesIO(uploaded_file.getvalue())
+                file_size = file_bytes.getbuffer().nbytes
+
+                st.session_state.reports.append({
+                    "name": uploaded_file.name,
+                    "file": file_bytes,
+                    "upload_time": upload_time,
+                    "type": file_type,
+                    "size": file_size
+                })
+
+                # Show warning when reaching the limit
+                if not st.session_state.subscribed and len(st.session_state.reports) == max_free_reports:
+                    st.warning(f"You have reached the maximum of {max_free_reports} free uploads! Subscribe to upload more.")
+                    st.page_link("pages/5_Subscription.py", label="Subscribe Now", icon="💳")
 
 if __name__ == "__main__":
     main()
