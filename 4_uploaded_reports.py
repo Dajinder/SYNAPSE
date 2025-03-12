@@ -60,26 +60,6 @@ def main():
                         mime=report["type"],
                         key=f"download_{index}"
                     )
-
-
-            # report_data = []
-            # for index, report in enumerate(sorted_reports):
-            #     file_bytes = report["file"].getvalue()
-            #     download_button = st.download_button(
-            #         label="📥 Download",
-            #         data=file_bytes,
-            #         file_name=report["name"],
-            #         mime=report["type"],
-            #         key=f"download_{index}"
-            #     )
-            #     report_data.append({
-            #         "File Name": report["name"],
-            #         "Upload Date": report["upload_time"].strftime("%Y-%m-%d %H:%M:%S"),
-            #         "Download": download_button
-            #     })
-
-            # df = pd.DataFrame(report_data).drop(columns=["Download"])
-            # st.dataframe(df, hide_index=True)
         else:
             st.write("No reports uploaded yet.")
 
