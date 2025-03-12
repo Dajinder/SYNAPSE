@@ -40,15 +40,16 @@ def signup_page():
 
 def main():
     st.sidebar.write(f"Logged in: {st.session_state.logged_in}")  # Debug output
+    st.sidebar.write(f"Username: {st.session_state.username}")
     if st.session_state.logged_in:
         st.title(f"Welcome, {st.session_state.username}! Please select a task from the sidebar.")
 
         col1, col2 = st.columns([2, 1])  # 4:1 ratio to push button to the right
         with col1:
-            st.page_link("pages/3_upload_report.py", label="Upload Report", icon="📄")
+            st.page_link("pages/3_upload_report.py", label="Upload Report", icon="📤")
             
         with col2:
-            st.page_link("pages/4_uploaded_reports.py", label="Uploaded Reports", icon="🔒")  # Links to Login page
+            st.page_link("pages/4_uploaded_reports.py", label="Uploaded Reports", icon="📋")  # Links to Login page
 
 
         if st.button("Logout"):
