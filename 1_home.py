@@ -7,6 +7,8 @@ import time
 # Set page config (must be at the top)
 st.set_page_config(page_title="Home", page_icon="🏠")
 
+st.logo(image="logo_6.png", size="large")
+
 def get_base64_image(file_path):
     """Convert local image to base64."""
     with open(file_path, "rb") as img_file:
