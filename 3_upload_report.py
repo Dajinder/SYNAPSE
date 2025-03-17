@@ -8,6 +8,8 @@ from PIL import Image
 # Set page config
 st.set_page_config(page_title="Upload Report", page_icon="📤")
 
+st.logo(image="logo_6.png", size="large")
+
 def main():
     # Debug output in sidebar
     st.sidebar.write(f"Logged in: {st.session_state.logged_in}")
