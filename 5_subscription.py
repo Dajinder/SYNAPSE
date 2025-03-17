@@ -4,6 +4,8 @@ import streamlit as st
 # Set page config
 st.set_page_config(page_title="Subscription", page_icon="💳")
 
+st.logo(image="logo_6.png", size="large")
+
 def main():
     st.sidebar.write(f"Logged in: {st.session_state.logged_in}")
     st.sidebar.write(f"Username: {st.session_state.username}")
