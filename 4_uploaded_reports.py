@@ -5,6 +5,8 @@ import pandas as pd
 # Set page config
 st.set_page_config(page_title="Uploaded Reports", page_icon="📋")
 
+st.logo(image="logo_6.png", size="large")
+
 def format_size(bytes_size):
     """Convert bytes to a human-readable format."""
     kb_size = bytes_size / 1024
