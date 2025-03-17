@@ -5,6 +5,8 @@ from utils import validate_user, register_user
 # Set page config
 st.set_page_config(page_title="Login", page_icon="🔑")
 
+st.logo(image="logo_6.png", size="large")
+
 # Initialize session state if not already set
 if 'logged_in' not in st.session_state:
     st.session_state.logged_in = False
