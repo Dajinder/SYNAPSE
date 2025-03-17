@@ -20,6 +20,7 @@ if 'subscribed' not in st.session_state:
 st.set_page_config(page_title="SYNAPSE", page_icon="🏠", layout="wide")
 
 # Sidebar navigation (Streamlit auto-generates this from page files)
+st.logo(image="logo_6.png", size="large")
 st.sidebar.title("SYNAPSE")
 st.sidebar.write(f"Logged in: {st.session_state.logged_in}")
 if st.session_state.logged_in and st.session_state.username:
