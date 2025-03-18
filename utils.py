@@ -71,3 +71,65 @@ def convert_pdf_to_images(pdf_file):
         return images
     except Exception as e:
         return []
+
+# Apply theme function
+def apply_theme():
+    if st.session_state.theme == "Light":
+        st.markdown("""
+            <style>
+            .stApp {
+                background-color: #FFE0B2;  /* Light orange background */
+                color: #333333;  /* Dark gray text */
+            }
+            h1, h2, h3, h4, h5, h6 {
+                color: #FF9800;  /* Orange headers */
+            }
+            .stButton>button {
+                background-color: #FF9800;  /* Orange buttons */
+                color: white;
+                border: none;
+            }
+            .stButton>button:hover {
+                background-color: #F57C00;  /* Darker orange on hover */
+            }
+            .stSuccess {
+                color: #4CAF50;  /* Green for success messages */
+            }
+            [data-testid="stSidebar"] {
+                background-color: #FF9800;  /* Orange sidebar */
+            }
+            </style>
+        """, unsafe_allow_html=True)
+    elif st.session_state.theme == "Dark":
+        st.markdown("""
+            <style>
+            .stApp {
+                background-color: #1e1e1e;  /* Dark gray background */
+                color: #ffffff;  /* White text */
+            }
+            h1, h2, h3, h4, h5, h6 {
+                color: #ffffff;  /* Purple headers */
+            }
+            .stButton>button {
+                background-color: #bb86fc;  /* Purple buttons */
+                color: #ffffff;  /* Black text on buttons */
+                border: none;
+            }
+            .stButton>button:hover {
+                background-color: #9a67ea;  /* Darker purple on hover */
+            }
+            .stSuccess {
+                color: #03dac6;  /* Teal for success messages */
+            }
+            [data-testid="stSidebar"] {
+                background-color: #333333;  /* Darker gray sidebar */
+                color: #BB86FC;  /* Purple text in sidebar (matching headers/buttons) */
+            }
+            [data-testid="stSidebar"] a {
+                color: #BB86FC;  /* Purple color for page links in sidebar */
+            }
+            [data-testid="stSidebar"] a:hover {
+                color: #ffffff;  /* Light gray on hover for page links */
+            }
+            </style>
+        """, unsafe_allow_html=True)
