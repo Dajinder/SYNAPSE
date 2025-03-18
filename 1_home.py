@@ -3,9 +3,23 @@ import streamlit as st
 import base64
 import os
 import time
+from utils import apply_theme
 
 # Set page config (must be at the top)
 st.set_page_config(page_title="Home", page_icon="🏠")
+
+# Apply the current theme
+apply_theme()
+
+
+# Top right theme toggle
+col1, col2 = st.columns([4, 1])
+with col2:
+    dark_mode = st.toggle("Dark Mode", value=(st.session_state.theme == "Dark"))
+    new_theme = "Dark" if dark_mode else "Light"
+    if new_theme != st.session_state.theme:
+        st.session_state.theme = new_theme
+        st.rerun()
 
 st.logo(image="logo_6.png", size="large")
 
